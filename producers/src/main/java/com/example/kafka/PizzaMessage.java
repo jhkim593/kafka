@@ -21,7 +21,8 @@ public class PizzaMessage {
             "D001", "E001", "F001", "G001", "H001", "I001", "J001", "K001", "L001", "M001", "N001",
             "O001", "P001", "Q001");
 
-    public PizzaMessage() {}
+    public PizzaMessage() {
+    }
 
     //인자로 피자명 또는 피자가게 List와 Random 객체를 입력 받아서 random한 피자명 또는 피자 가게 명을 반환.
     private String getRandomValueFromList(List<String> list, Random random) {
@@ -37,7 +38,7 @@ public class PizzaMessage {
         String shopId = getRandomValueFromList(pizzaShop, random);
         String pizzaName = getRandomValueFromList(pizzaNames, random);
 
-        String ordId = "ord"+id;
+        String ordId = "ord" + id;
         String customerName = faker.name().fullName();
         String phoneNumber = faker.phoneNumber().phoneNumber();
         String address = faker.address().streetAddress();
@@ -60,9 +61,9 @@ public class PizzaMessage {
         Random random = new Random(seed);
         Faker faker = Faker.instance(random);
 
-        for(int i=0; i < 60; i++) {
+        for (int i = 0; i < 60; i++) {
             HashMap<String, String> message = pizzaMessage.produce_msg(faker, random, i);
-            System.out.println("key:"+ message.get("key") + " message:" + message.get("message"));
+            System.out.println("key:" + message.get("key") + " message:" + message.get("message"));
         }
 
     }

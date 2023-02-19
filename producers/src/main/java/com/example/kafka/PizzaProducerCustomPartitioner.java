@@ -14,8 +14,8 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-public class PizzaProducer {
-    public static final Logger logger = LoggerFactory.getLogger(PizzaProducer.class.getName());
+public class PizzaProducerCustomPartitioner {
+    public static final Logger logger = LoggerFactory.getLogger(PizzaProducerCustomPartitioner.class.getName());
 
     public static void sendPizzaMessage(KafkaProducer<String, String> kafkaProducer,
                                         String topicName, int iterCount,
@@ -92,7 +92,7 @@ public class PizzaProducer {
 
     public static void main(String[] args) {
 
-        String topicName = "pizza-topic";
+        String topicName = "pizza-topic-partitioner";
 
         //KafkaProducer configuration setting
         // null, "hello world"
@@ -102,7 +102,12 @@ public class PizzaProducer {
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 //        props.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,"6");
-        props.setProperty(ProducerConfig.ACKS_CONFIG, "0");
+//        props.setProperty(ProducerConfig.ACKS_CONFIG, "0");
+        props.setProperty(ProducerConfig.PARTITIONER_CLASS_CONFIG, "com.example.kafka.CustomPartitioner");
+
+        //custom
+        props.setProperty("custom.specialKey", "P001");
+
 //        props.setProperty(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, "50000");
 
         //acks 설정
@@ -116,7 +121,7 @@ public class PizzaProducer {
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
 
         sendPizzaMessage(kafkaProducer, topicName,
-                -1, 1000, 100, 100, true);
+                -1, 100, 0, 0, true);
 
         kafkaProducer.close();
 

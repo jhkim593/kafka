@@ -28,7 +28,7 @@ public class ProducerASyncCustomCB {
 
             Callback callback = new CustomCallBack(seq);
 
-            kafkaProducer.send(producerRecord,callback);
+            kafkaProducer.send(producerRecord, callback);
         }
 
         kafkaProducer.flush();

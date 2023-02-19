@@ -21,7 +21,7 @@ public class SimpleProducerSync {
 
         Properties props = new Properties();
 
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.56.101:9092");
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -32,13 +32,13 @@ public class SimpleProducerSync {
         try {
             RecordMetadata recordMetadata = kafkaProducer.send(producerRecord).get();
             logger.info("record metadata received\n"
-                    +"partition"+recordMetadata.partition()+"\n"
-                    +"offset"+recordMetadata.offset());
+                    + "partition" + recordMetadata.partition() + "\n"
+                    + "offset" + recordMetadata.offset());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             kafkaProducer.close();
         }
 

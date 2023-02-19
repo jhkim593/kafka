@@ -16,7 +16,7 @@ public class SimpleProducerASync {
 
         Properties props = new Properties();
 
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.56.101:9092");
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -28,12 +28,11 @@ public class SimpleProducerASync {
             @Override
             public void onCompletion(RecordMetadata recordMetadata, Exception exception) {
 
-                if(exception == null){
+                if (exception == null) {
                     logger.info("record metadata received\n"
-                            +"partition"+recordMetadata.partition()+"\n"
-                            +"offset"+recordMetadata.offset());
-                }
-                else {
+                            + "partition" + recordMetadata.partition() + "\n"
+                            + "offset" + recordMetadata.offset());
+                } else {
                     logger.error("error", exception.getMessage());
                 }
             }
